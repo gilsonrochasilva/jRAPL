@@ -18,6 +18,7 @@ public class EnergyCheckUtils {
 
 	public static int socketNum;
 	static {
+//		System.setProperty("java.library.path", "/home/gilson/Documents/git/github/gilsonrochasilva/jRAPL");
 		System.setProperty("java.library.path", System.getProperty("user.dir"));
 		try {
 			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");

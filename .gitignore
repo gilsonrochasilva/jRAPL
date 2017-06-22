@@ -30,3 +30,8 @@
 
 #class
 *.class
+
+#JetBrains
+.idea/
+.bin/
+*iml
