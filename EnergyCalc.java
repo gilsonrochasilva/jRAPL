@@ -77,47 +77,22 @@ public class EnergyCalc extends TimeCalc implements StandDevCal {
 	    this.postEnergy = postEnergy;
 
     }
-    
-	
-//	public void reportInit(String timePreamble, double wallClockTimeStart, String preEnergy, String timeEpilogue, double wallClockTimeEnd, String postEnergy) {
-//		this.timePreamble = timePreamble;
-//		this.wallClockTimeStart = wallClockTimeStart;
-//		this.preEnergy = preEnergy;
-//		
-//		this.timeEpilogue = timeEpilogue;
-//		this.wallClockTimeEnd = wallClockTimeEnd;
-//		this.postEnergy = postEnergy;
-//	}
-    
+
     public void getStandDev(int loopNum) {
     	for (int j = 0; j < sockNum; j++) {
 	    	for(int i = 0; i <= loopCount; i++) {
 	    		gpuEnerSD[j] += Math.pow((gpuEnergySum[j]/loopNum - gpuEnerPerLoop[j][i]), 2.0);
 	    		cpuEnerSD[j] += Math.pow((cpuEnergySum[j]/loopNum - cpuEnerPerLoop[j][i]), 2.0);
 	    		pkgEnerSD[j] += Math.pow((pkgEnergySum[j]/loopNum - pkgEnerPerLoop[j][i]), 2.0);
-	    		
-//	    		System.out.println("gpu sum: " + gpuEnergySum[j]);
-//	    		System.out.println("cpu sum: " + cpuEnergySum[j]);
-//	    		System.out.println("pkg sum: " + pkgEnergySum[j]);
-//	    		
-//	    		System.out.println("gpu per loop: " + gpuEnerPerLoop[j][i]);
-//	    		System.out.println("cpu per loop: " + cpuEnerPerLoop[j][i]);
-//	    		System.out.println("pkg per loop: " + pkgEnerPerLoop[j][i]);
-//	    		
-//	    		System.out.println("gpu pwoer: " + Math.pow((gpuEnergySum[j]/loopNum - gpuEnerPerLoop[j][i]), 2.0));
-//	    		System.out.println("cpu power: " + Math.pow((cpuEnergySum[j]/loopNum - cpuEnerPerLoop[j][i]), 2.0));
-//	    		System.out.println("pkg power: " + Math.pow((pkgEnergySum[j]/loopNum - pkgEnerPerLoop[j][i]), 2.0));
-	    		
+
 	    	}
     	}
 
     	//get wall clock time standard deviation
     	for(int i = 0; i <= loopCount; i++) {
     		wallClockTimeSD += Math.pow(wallClockTime/loopNum - wallClockTimePerLoop[i], 2.0);
-//    		System.out.println(wallClockTimeSD);
     	}
-//    	System.out.println("gpuenerSD: " + gpuEnerSD[0] + " cpuenerSD: " + cpuEnerSD[0] + " pkgenerSD: " + pkgEnerSD[0] + " wallClockTimeSD " + wallClockTimeSD);
-    	
+
     	wallClockTimeSD = Math.sqrt(wallClockTimeSD / loopNum);
     	
     	for(int i = 0; i < sockNum; i++) {
@@ -140,11 +115,8 @@ public class EnergyCalc extends TimeCalc implements StandDevCal {
 	    EnergyCalc.dramTime = dramTime; 
 	    EnergyCalc.powerOption = powerOption;
 	    EnergyCalc.timeOption = timeOption;
-    	
     }
-    
-    
-	
+
 	public static double calculateEnergy(double end, double start) {
 		double delta = 0;
 		delta = end - start;
@@ -165,7 +137,6 @@ public class EnergyCalc extends TimeCalc implements StandDevCal {
 		
 		curWallClockTime = wallClockTimeEnd - wallClockTimeStart;
 		wallClockTimePerLoop[loopCount] = curWallClockTime;
-//		System.out.println("wall clock time per loop: " + wallClockTimePerLoop[loopCount] + "curWallClockTime: " + curWallClockTime);
 		wallClockTime += curWallClockTime;
 		/*One Socket*/
 		if(!preEnergy.contains("@")) {
@@ -211,18 +182,8 @@ public class EnergyCalc extends TimeCalc implements StandDevCal {
 			pkgEnerPerLoop[i][loopCount] = delta;
 			//record for average energy/power consumption
 			pkgEnergySum[i] += delta;
-//			System.out.println("loopCount: " + loopCount + " pkgEnerPerLoop" + delta);
 			delta = getPower(delta, curWallClockTime);
 			pkgEnerPowerSum[i] += delta;
-			
-//			System.out.println(Double.parseDouble(loopEnergyStop[i][0]) - Double.parseDouble(loopEnergyStart[i][0]));
-//			System.out.println(Double.parseDouble(loopEnergyStop[i][1]) - Double.parseDouble(loopEnergyStart[i][1]));
-//			System.out.println(Double.parseDouble(loopEnergyStop[i][2]) - Double.parseDouble(loopEnergyStart[i][2]));
-//			System.out.println(gpuEnergySum[i]);
-//			System.out.println(cpuEnergySum[i]);
-//			System.out.println(pkgEnergySum[i]);
 		}
 	}
-	
-    
 }

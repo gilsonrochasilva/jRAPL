@@ -41,7 +41,7 @@ public class EnergyCheckUtils {
 	public static double[] getEnergyStats() {
 		socketNum = GetSocketNum();
 		String EnergyInfo = EnergyStatCheck();
-		System.out.println(EnergyInfo);
+//		System.out.println(EnergyInfo);
 		/*One Socket*/
 		if(socketNum == 1) {
 			double[] stats = new double[3];
