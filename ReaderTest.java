@@ -9,6 +9,7 @@ abstract class ReaderTest {
 
     private static int ITERATIONS = 10;
     private static int SAMPLES = 3;
+    private static int SLEEP_TIME = 1100;
 
     private String result;
 
@@ -41,10 +42,10 @@ abstract class ReaderTest {
                 cpuEnergy += getEnergyDelta(after[1], before[1]);
                 packageEnergy += getEnergyDelta(after[2], before[2]);
                 uncoreEnergy += packageEnergy - cpuEnergy;
-                wallClockTimeUse += wallClockEnd - wallClockStart;
+                wallClockTimeUse += (wallClockEnd - wallClockStart);
             }
 
-            try { Thread.sleep(1800); } catch (InterruptedException e) { }
+            try { Thread.sleep(SLEEP_TIME); } catch (InterruptedException e) { }
         }
 
         dramEnergy /= SAMPLES;
@@ -66,7 +67,7 @@ abstract class ReaderTest {
     }
 
     public static double getEnergyDelta(double after, double before) {
-        return (after - before) / 10D;
+        return after - before;
     }
 
     public String getResult() {
@@ -107,6 +108,6 @@ abstract class ReaderTest {
         result = result.concat("\n").concat(fileReaderTest.getResult());
         result = result.concat("\n").concat(stringReaderTest.getResult());
 
-        System.out.println(result);
+        Util.saveReport("test-4-reader-read-20mb.csv", result);
     }
 }
