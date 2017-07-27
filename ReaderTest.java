@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Arrays;
 
 /**
  * Created by root on 29/06/17.
@@ -9,12 +10,16 @@ abstract class ReaderTest {
 
     private static int ITERATIONS = 10;
     private static int SAMPLES = 3;
+    private static int SAMPLES_DISTRIBUTION = 7;
     private static int SLEEP_TIME = 1100;
 
     private String result;
 
+    private String distributionResult;
+
     public ReaderTest() {
         this.result = new String();
+        this.distributionResult = new String();
     }
 
     protected void testRead() throws IOException {
@@ -23,6 +28,8 @@ abstract class ReaderTest {
         double packageEnergy = 0D;
         double uncoreEnergy = 0D;
         double wallClockTimeUse = 0D;
+
+        double energyDistribution[] = new double[SAMPLES_DISTRIBUTION];
 
         for (int i = 0; i < ITERATIONS; i++) {
             Reader reader = getReaderInstance();
@@ -36,6 +43,16 @@ abstract class ReaderTest {
 
             double[] after = EnergyCheckUtils.getEnergyStats();
             double wallClockEnd = System.currentTimeMillis() / 1000D;
+
+            if(i >= (ITERATIONS - SAMPLES_DISTRIBUTION)) {
+                double _dramEnergy = getEnergyDelta(after[0], before[0]);
+                double _cpuEnergy = getEnergyDelta(after[1], before[1]);
+                double _packageEnergy = getEnergyDelta(after[2], before[2]);
+                double _uncoreEnergy = (_packageEnergy - _cpuEnergy);
+
+                int indexDistribuition = (ITERATIONS - SAMPLES_DISTRIBUTION - i) * (-1);
+                energyDistribution[indexDistribuition] = _uncoreEnergy + _dramEnergy + _cpuEnergy;
+            }
 
             if(i >= (ITERATIONS - SAMPLES)) {
                 dramEnergy += getEnergyDelta(after[0], before[0]);
@@ -60,6 +77,15 @@ abstract class ReaderTest {
         result = result.concat(String.valueOf(getPower(uncoreEnergy, wallClockTimeUse)).concat(","));
         result = result.concat(String.valueOf(getPower(dramEnergy, wallClockTimeUse)).concat(","));
         result = result.concat(String.valueOf(getPower(cpuEnergy, wallClockTimeUse)));
+
+        Arrays.sort(energyDistribution);
+
+        distributionResult = distributionResult.concat(getSigla()).concat(",");
+        distributionResult = distributionResult.concat(String.valueOf(energyDistribution[energyDistribution.length - 1])).concat(",");
+        distributionResult = distributionResult.concat(String.valueOf(Util.quartil(3, energyDistribution))).concat(",");
+        distributionResult = distributionResult.concat(String.valueOf(Util.quartil(2, energyDistribution))).concat(",");
+        distributionResult = distributionResult.concat(String.valueOf(Util.quartil(1, energyDistribution)).concat(","));
+        distributionResult = distributionResult.concat(String.valueOf(energyDistribution[0]));
     }
 
     public static double getPower(double energy, double time) {
@@ -74,12 +100,18 @@ abstract class ReaderTest {
         return result;
     }
 
+    public String getDistributionResult() {
+        return distributionResult;
+    }
+
     abstract String getSigla();
 
     abstract Reader getReaderInstance() throws FileNotFoundException;
 
     public static void main(String[] args) throws IOException {
         String result = "CLASS,UNCORE-ENERGY,DRAM-ENERGY,CPU-ENERGY,UNCORE-POWER,DRAM-POWER,CPU-POWER";
+        String distributionResult = "CLASS,MAX,Q3,Q2,Q1,MIN";
+        String testNumber = "6";
 
         BufferedReaderTest bufferedReaderTest = new BufferedReaderTest();
         bufferedReaderTest.testRead();
@@ -108,6 +140,14 @@ abstract class ReaderTest {
         result = result.concat("\n").concat(fileReaderTest.getResult());
         result = result.concat("\n").concat(stringReaderTest.getResult());
 
-        Util.saveReport("test-4-reader-read-20mb.csv", result);
+        distributionResult = distributionResult.concat("\n").concat(bufferedReaderTest.getDistributionResult());
+        distributionResult = distributionResult.concat("\n").concat(lineNumberReaderTest.getDistributionResult());
+        distributionResult = distributionResult.concat("\n").concat(charArrayReaderTest.getDistributionResult());
+        distributionResult = distributionResult.concat("\n").concat(pushbackReaderTest.getDistributionResult());
+        distributionResult = distributionResult.concat("\n").concat(fileReaderTest.getDistributionResult());
+        distributionResult = distributionResult.concat("\n").concat(stringReaderTest.getDistributionResult());
+
+        Util.saveReport("test-" + testNumber + "-reader-read-20mb.csv", result);
+        Util.saveReport("test-" + testNumber + "-reader-read-boxplot-20mb.csv", distributionResult);
     }
 }
