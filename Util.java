@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,5 +48,10 @@ public class Util {
 
     public static double getEnergyDelta(double after, double before) {
         return after - before;
+    }
+
+    public static void cleanTempFolder() {
+        File dir = new File("/home/gilson/Documents/EstudoDirigido/writer-out");
+        for (File file: dir.listFiles()) file.delete();
     }
 }

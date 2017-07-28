@@ -53,18 +53,18 @@ def boxplotGraph(prefix, xTicks, energyData):
 
 def main():
 
-    testNumber = "6";
+    testNumber = "7";
 
-    readData = pd.read_csv(path() + 'inputs/test-' + testNumber + '-reader-read-20mb.csv', usecols=['CLASS', 'UNCORE-ENERGY', 'DRAM-ENERGY', 'CPU-ENERGY', 'UNCORE-POWER', 'DRAM-POWER', 'CPU-POWER'])
+    readData = pd.read_csv(path() + 'inputs/test-' + testNumber + '-input-stream-read-20mb.csv', usecols=['CLASS', 'UNCORE-ENERGY', 'DRAM-ENERGY', 'CPU-ENERGY', 'UNCORE-POWER', 'DRAM-POWER', 'CPU-POWER'])
     barGraph('test-' + testNumber + '-reader-read-20mb', readData['CLASS'].values, readData['UNCORE-ENERGY'].values, readData['DRAM-ENERGY'].values, readData['CPU-ENERGY'].values, readData['UNCORE-POWER'].values, readData['DRAM-POWER'].values, readData['CPU-POWER'].values)
 
-    readDataBoxplot = pd.read_csv(path() + 'inputs/test-' + testNumber + '-reader-read-boxplot-20mb.csv', usecols=['CLASS', 'MAX', 'Q3', 'Q2', 'Q1', 'MIN'])
+    readDataBoxplot = pd.read_csv(path() + 'inputs/test-' + testNumber + '-input-stream-read-boxplot-20mb.csv', usecols=['CLASS', 'MAX', 'Q3', 'Q2', 'Q1', 'MIN'])
     boxplotGraph('test-' + testNumber + '-reader-read-boxplot-20mb', readDataBoxplot['CLASS'].values, readDataBoxplot[['MAX', 'Q3', 'Q2', 'Q1', 'MIN']].values.tolist())
 
-    writeData = pd.read_csv(path() + 'inputs/test-' + testNumber + '-writer-write-20mb.csv', usecols=['CLASS', 'UNCORE-ENERGY', 'DRAM-ENERGY', 'CPU-ENERGY', 'UNCORE-POWER', 'DRAM-POWER', 'CPU-POWER'])
+    writeData = pd.read_csv(path() + 'inputs/test-' + testNumber + '-output-stream-write-20mb.csv', usecols=['CLASS', 'UNCORE-ENERGY', 'DRAM-ENERGY', 'CPU-ENERGY', 'UNCORE-POWER', 'DRAM-POWER', 'CPU-POWER'])
     barGraph('test-' + testNumber + '-writer-write-20mb', writeData['CLASS'].values, writeData['UNCORE-ENERGY'].values, writeData['DRAM-ENERGY'].values, writeData['CPU-ENERGY'].values, writeData['UNCORE-POWER'].values, writeData['DRAM-POWER'].values, writeData['CPU-POWER'].values)
 
-    writeDataBoxplot = pd.read_csv(path() + 'inputs/test-' + testNumber + '-writer-write-boxplot-20mb.csv', usecols=['CLASS', 'MAX', 'Q3', 'Q2', 'Q1', 'MIN'])
+    writeDataBoxplot = pd.read_csv(path() + 'inputs/test-' + testNumber + '-output-stream-write-boxplot-20mb.csv', usecols=['CLASS', 'MAX', 'Q3', 'Q2', 'Q1', 'MIN'])
     boxplotGraph('test-' + testNumber + '-writer-write-boxplot-20mb', writeDataBoxplot['CLASS'].values, writeDataBoxplot[['MAX', 'Q3', 'Q2', 'Q1', 'MIN']].values.tolist())
 
 main()

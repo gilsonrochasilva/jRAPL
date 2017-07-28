@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -147,7 +146,7 @@ abstract class WriterTest {
         Util.saveReport("test-" + testNumber + "-writer-write-20mb.csv", result);
         Util.saveReport("test-" + testNumber + "-writer-write-boxplot-20mb.csv", distributionResult);
 
-        File dir = new File("/home/gilson/Documents/EstudoDirigido/writer-out");
-        for (File file: dir.listFiles()) file.delete();
+        Util.cleanTempFolder();
     }
+
 }
