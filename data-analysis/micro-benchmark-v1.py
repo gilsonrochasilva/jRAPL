@@ -79,4 +79,14 @@ def main():
     barGraph('test-' + testNumber + '-output-stream-write-20mb', outputStreamData['CLASS'].values, outputStreamData['UNCORE-ENERGY'].values, outputStreamData['DRAM-ENERGY'].values, outputStreamData['CPU-ENERGY'].values, outputStreamData['UNCORE-POWER'].values, outputStreamData['DRAM-POWER'].values, outputStreamData['CPU-POWER'].values)
     boxplotGraph('test-' + testNumber + '-output-stream-write-boxplot-20mb', outputStreamDataBoxplot['CLASS'].values, outputStreamDataBoxplot[['MAX', 'Q3', 'Q2', 'Q1', 'MIN']].values.tolist())
 
-main()
+def scanner():
+
+    testNumber = "9";
+
+    readerData = pd.read_csv(path() + 'inputs/test-' + testNumber + '-scanner-next-20mb.csv', usecols=['CLASS', 'UNCORE-ENERGY', 'DRAM-ENERGY', 'CPU-ENERGY', 'UNCORE-POWER', 'DRAM-POWER', 'CPU-POWER'])
+    readerDataBoxplot = pd.read_csv(path() + 'inputs/test-' + testNumber + '-scanner-next-boxplot-20mb.csv', usecols=['CLASS', 'MAX', 'Q3', 'Q2', 'Q1', 'MIN'])
+
+    barGraph('test-' + testNumber + '-scanner-next-20mb', readerData['CLASS'].values, readerData['UNCORE-ENERGY'].values, readerData['DRAM-ENERGY'].values, readerData['CPU-ENERGY'].values, readerData['UNCORE-POWER'].values, readerData['DRAM-POWER'].values, readerData['CPU-POWER'].values)
+    boxplotGraph('test-' + testNumber + '-scanner-next-boxplot-20mb', readerDataBoxplot['CLASS'].values, readerDataBoxplot[['MAX', 'Q3', 'Q2', 'Q1', 'MIN']].values.tolist())
+
+scanner()

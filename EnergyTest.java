@@ -3,7 +3,7 @@
  */
 public abstract class EnergyTest {
 
-    public static final String TEST_NUMBER = "7";
+    public static final String TEST_NUMBER = "9";
     public static int ITERATIONS = 10;
     public static int SAMPLES = 3;
     public static int SAMPLES_DISTRIBUTION = 7;
