@@ -1,25 +1,23 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class BufferedReaderTest extends ReaderTest {
+public class BufferedReaderTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReaderTest bufferedReaderTest = new BufferedReaderTest();
-        bufferedReaderTest.testRead();
-
-        EnergyCheckUtils.ProfileDealloc();
-
-        System.out.println(bufferedReaderTest.getResult());
+    @Override
+    public void testImplementation() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_READER));
+            int value = 0, fake = 0;
+            while ((value = reader.read()) != -1) fake = value;
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public String getSigla() {
+    public String getId() {
         return "BR";
-    }
-
-    @Override
-    public Reader getReaderInstance() throws FileNotFoundException {
-        return new BufferedReader(new FileReader("/home/gilson/Documents/EstudoDirigido/largepagewithimages.html")); // 20mb
-//        return new BufferedReader(new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-13")); // 140mb
-//        return new BufferedReader(new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-14")); // 316mb
     }
 }

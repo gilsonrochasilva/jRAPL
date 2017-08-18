@@ -1,25 +1,21 @@
 import java.io.*;
 
-public class LineNumberReaderTest extends ReaderTest {
+public class LineNumberReaderTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    public static void main(String[] args) throws IOException {
-        LineNumberReaderTest lineNumberReaderTest = new LineNumberReaderTest();
-        lineNumberReaderTest.testRead();
-
-        EnergyCheckUtils.ProfileDealloc();
-
-        System.out.println(lineNumberReaderTest.getResult());
+    @Override
+    public void testImplementation() {
+        try {
+            LineNumberReader reader = new LineNumberReader(new FileReader(FILE_READER));
+            int value = 0, fake = 0;
+            while ((value = reader.read()) != -1) fake = value;
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public String getSigla() {
+    public String getId() {
         return "LNR";
-    }
-
-    @Override
-    public Reader getReaderInstance() throws FileNotFoundException {
-        return new LineNumberReader(new FileReader("/home/gilson/Documents/EstudoDirigido/largepagewithimages.html")); // 20mb
-//        return new LineNumberReader(new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-13")); // 140mb
-//        return new LineNumberReader(new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-14")); // 316mb
     }
 }

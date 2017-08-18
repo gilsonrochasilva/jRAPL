@@ -2,6 +2,7 @@ import datetime as dt
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 def path():
     return "/home/gilson/Documents/git/github/gilsonrochasilva/jRAPL/data-analysis/"
@@ -89,4 +90,11 @@ def scanner():
     barGraph('test-' + testNumber + '-scanner-next-20mb', readerData['CLASS'].values, readerData['UNCORE-ENERGY'].values, readerData['DRAM-ENERGY'].values, readerData['CPU-ENERGY'].values, readerData['UNCORE-POWER'].values, readerData['DRAM-POWER'].values, readerData['CPU-POWER'].values)
     boxplotGraph('test-' + testNumber + '-scanner-next-boxplot-20mb', readerDataBoxplot['CLASS'].values, readerDataBoxplot[['MAX', 'Q3', 'Q2', 'Q1', 'MIN']].values.tolist())
 
-scanner()
+def generate(barChartData, distributionChartData):
+    readerData = pd.read_csv(path() + 'inputs/' + barChartData, usecols=['CLASS', 'UNCORE-ENERGY', 'DRAM-ENERGY', 'CPU-ENERGY', 'UNCORE-POWER', 'DRAM-POWER', 'CPU-POWER'])
+    readerDataBoxplot = pd.read_csv(path() + 'inputs/' + distributionChartData, usecols=['CLASS', 'MAX', 'Q3', 'Q2', 'Q1', 'MIN'])
+
+    barGraph(barChartData.replace('.csv', ''), readerData['CLASS'].values, readerData['UNCORE-ENERGY'].values, readerData['DRAM-ENERGY'].values, readerData['CPU-ENERGY'].values, readerData['UNCORE-POWER'].values, readerData['DRAM-POWER'].values, readerData['CPU-POWER'].values)
+    boxplotGraph(distributionChartData.replace('.csv', ''), readerDataBoxplot['CLASS'].values, readerDataBoxplot[['MAX', 'Q3', 'Q2', 'Q1', 'MIN']].values.tolist())
+
+generate(sys.argv[1], sys.argv[2])

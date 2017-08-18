@@ -1,36 +1,35 @@
 import java.io.*;
 
-public class CharArrayReaderTest extends ReaderTest {
+public class CharArrayReaderTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    public static void main(String[] args) throws IOException {
-        CharArrayReaderTest charArrayReaderTest = new CharArrayReaderTest();
-        charArrayReaderTest.testRead();
+    private StringBuffer data;
 
-        EnergyCheckUtils.ProfileDealloc();
-
-        System.out.println(charArrayReaderTest.getResult());
-    }
-
-    @Override
-    public String getSigla() {
-        return "FR";
-    }
-
-    @Override
-    public Reader getReaderInstance() throws FileNotFoundException {
-        FileReader fileReader = new FileReader("/home/gilson/Documents/EstudoDirigido/largepagewithimages.html"); // 20mb
-//        FileReader fileReader = new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-13"); // 140mb
-//        FileReader fileReader = new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-14"); // 316mb
-
-        StringBuffer data = new StringBuffer();
+    public CharArrayReaderTest() {
         try {
+            FileReader fileReader = new FileReader(FILE_READER);
+            data = new StringBuffer();
             int value = 0;
             while ((value = fileReader.read()) != -1) data = data.append(value);
             fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        return new CharArrayReader(data.toString().toCharArray());
+    @Override
+    public void testImplementation() {
+        try {
+            CharArrayReader reader = new CharArrayReader(data.toString().toCharArray());
+            int value = 0, fake = 0;
+            while ((value = reader.read()) != -1) fake = value;
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "FR";
     }
 }

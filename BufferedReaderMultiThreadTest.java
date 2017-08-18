@@ -5,7 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class BufferedReaderMultiThreadTest extends ReaderTest {
+//public class BufferedReaderMultiThreadTest extends ReaderTest {
+public class BufferedReaderMultiThreadTest {
 
     public BufferedReaderMultiThreadTest() throws FileNotFoundException {
 //        super(new BufferedReader(new FileReader("/home/gilson/Dropbox/UFPA/Mestrado/Estudo Dirigido/Assets/largepagewithimages.html"))); // 20mb
@@ -14,7 +15,7 @@ public class BufferedReaderMultiThreadTest extends ReaderTest {
     }
 
     public static void main(String[] args) throws IOException {
-        new BufferedReaderMultiThreadTest().testRead();
+//        new BufferedReaderMultiThreadTest().testRead();
     }
 
     public static void start() throws IOException, InterruptedException {
@@ -97,13 +98,13 @@ public class BufferedReaderMultiThreadTest extends ReaderTest {
         }
     }
 
-    @Override
-    String getSigla() {
-        return "BR";
-    }
-
-    @Override
-    Reader getReaderInstance() throws FileNotFoundException {
-        return null;
-    }
+//    @Override
+//    String getSigla() {
+//        return "BR";
+//    }
+//
+//    @Override
+//    Reader getReaderInstance() throws FileNotFoundException {
+//        return null;
+//    }
 }
