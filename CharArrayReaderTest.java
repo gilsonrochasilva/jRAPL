@@ -30,6 +30,6 @@ public class CharArrayReaderTest extends EnergyTestImpl implements IEnergyTestCa
 
     @Override
     public String getId() {
-        return "FR";
+        return "CAR";
     }
 }
