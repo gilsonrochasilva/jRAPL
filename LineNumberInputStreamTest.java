@@ -1,25 +1,23 @@
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.LineNumberInputStream;
 
-public class LineNumberInputStreamTest extends InputStreamTest {
+public class LineNumberInputStreamTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    public static void main(String[] args) throws IOException {
-        LineNumberInputStreamTest lineNumberInputStreamTest = new LineNumberInputStreamTest();
-        lineNumberInputStreamTest.testRead();
-
-        EnergyCheckUtils.ProfileDealloc();
-
-        System.out.println(lineNumberInputStreamTest.getResult());
+    @Override
+    public void testImplementation() {
+        try {
+            LineNumberInputStream reader = new LineNumberInputStream(new FileInputStream(FILE_READER));
+            int value = 0, fake = 0;
+            while ((value = reader.read()) != -1) fake = value;
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public String getSigla() {
+    public String getId() {
         return "LNIS";
-    }
-
-    @Override
-    public InputStream getInputStreamInstance() throws FileNotFoundException {
-        return new LineNumberInputStream(new FileInputStream("/home/gilson/Documents/EstudoDirigido/largepagewithimages.html")); // 20mb
-//        return new LineNumberInputStream(new FileInputStream("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-13")); // 140mb
-//        return new LineNumberInputStream(new FileInputStream("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-14")); // 316mb
     }
 }

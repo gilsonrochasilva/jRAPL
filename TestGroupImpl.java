@@ -1,4 +1,3 @@
-import java.io.BufferedInputStream;
 import java.io.IOException;
 
 /**
@@ -30,8 +29,9 @@ public abstract class TestGroupImpl implements TestConfiguration {
             Util.saveReport(barChartName, result);
             Util.saveReport(distributionResultName, distributionResult);
 
-            Process exec = Runtime.getRuntime().exec(String.format("/usr/bin/python2.7 /home/gilson/Documents/git/github/gilsonrochasilva/jRAPL/data-analysis/micro-benchmark-v1.py %s %s", barChartName, distributionResultName));
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(exec.getInputStream());
+            System.out.println(String.format("/usr/bin/python2.7 /home/gilson/Documents/git/github/gilsonrochasilva/jRAPL/data-analysis/micro-benchmark-v1.py %s %s", barChartName, distributionResultName));
+//            Process exec = Runtime.getRuntime().exec(String.format("/usr/bin/python2.7 /home/gilson/Documents/git/github/gilsonrochasilva/jRAPL/data-analysis/micro-benchmark-v1.py %s %s", barChartName, distributionResultName));
+//            BufferedInputStream bufferedInputStream = new BufferedInputStream(exec.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -24,11 +24,11 @@ public class ReaderTest extends TestGroupImpl {
 
     @Override
     public String getBarChartName() {
-        return "test-%s-reader-read-20mb.csv";
+        return "test-%s-reader-read-1mb.csv";
     }
 
     @Override
     public String getDistributionChartName() {
-        return "test-%s-reader-read-boxplot-20mb.csv";
+        return "test-%s-reader-read-boxplot-1mb.csv";
     }
 }

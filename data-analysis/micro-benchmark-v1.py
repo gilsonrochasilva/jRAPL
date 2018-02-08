@@ -11,6 +11,9 @@ def barGraph(prefix, xTicks, energyUncore, energyDRAM, energyCPU, powerDataUncor
 
     barSpace = 0.25
     barWidth = 0.5
+
+    # barSpace = 2.0
+    # barWidth = 0.5
     barStep = barWidth + barSpace
 
     energyLocations = np.arange(0, energyUncore.__len__() * barStep, barStep)
@@ -24,6 +27,7 @@ def barGraph(prefix, xTicks, energyUncore, energyDRAM, energyCPU, powerDataUncor
     # e2 = energyAxis.bar(energyLocations, energyDRAM, barWidth, bottom=energyUncore, color='#A0A0A0')
     # e3 = energyAxis.bar(energyLocations, energyCPU, barWidth, bottom=energyDRAM, color='#606060')
 
+    # energyAxis.legend(['Energy Consumption'], loc='lower center')
     energyAxis.legend(['Energy Consumption'], loc='lower center', bbox_to_anchor=(0.5, -0.14))
     # energyAxis.legend((e1[0], e2[0], e3[0]), ('UNCORE', 'DRAM', 'CPU'), loc='center right', bbox_to_anchor=(1.47, 0.5))
 
@@ -34,10 +38,11 @@ def barGraph(prefix, xTicks, energyUncore, energyDRAM, energyCPU, powerDataUncor
     p2 = powerAxis.plot(powerLocations, powerDataDRAM, 'go--')
     p3 = powerAxis.plot(powerLocations, powerDataCPU, 'ro--')
 
-    powerAxis.legend((p1[0], p2[0], p3[0]), ('UNCORE', 'DRAM', 'CPU'), loc='center right', bbox_to_anchor=(1.47, 0.5))
+    powerAxis.legend((p1[0], p2[0], p3[0]), ('UNCORE', 'DRAM', 'CPU'), loc='center top')
+    # powerAxis.legend((p1[0], p2[0], p3[0]), ('UNCORE', 'DRAM', 'CPU'), loc=0)
 
     figure.tight_layout()
-    figure.subplots_adjust(right=0.7, bottom=0.14)
+    figure.subplots_adjust(bottom=0.14)
 
     plt.xticks(powerLocations, xTicks)
     plt.savefig(path() + 'results/' + prefix + '-' + dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")+ ".eps", format='eps')

@@ -1,16 +1,29 @@
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-public class StringWriterTest extends WriterTest {
+public class StringWriterTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    @Override
-    public String getSigla() {
-        return "SW";
+    private String data;
+
+    public StringWriterTest() throws IOException {
+        this.data = new String(Files.readAllBytes(Paths.get(FILE_READER)));
     }
 
     @Override
-    public Writer getWriterInstance() throws IOException {
-        return new StringWriter();
+    public void testImplementation() {
+        try {
+            StringWriter stringWriter = new StringWriter();
+            stringWriter.write(data);
+            stringWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "SW";
     }
 }

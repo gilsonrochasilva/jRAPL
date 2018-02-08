@@ -1,17 +1,30 @@
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 
-public class FileWriterTest extends WriterTest {
+public class FileWriterTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    @Override
-    public String getSigla() {
-        return "FW";
+    private String data;
+
+    public FileWriterTest() throws IOException {
+        this.data = new String(Files.readAllBytes(Paths.get(FILE_READER)));
     }
 
     @Override
-    public Writer getWriterInstance() throws IOException {
-        return new FileWriter("/home/gilson/Documents/EstudoDirigido/writer-out/" + UUID.randomUUID().toString()); // 20mb
+    public void testImplementation() {
+        try {
+            FileWriter fileWriter = new FileWriter(OUT_WRITER + UUID.randomUUID().toString());
+            fileWriter.write(data);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "FW";
     }
 }

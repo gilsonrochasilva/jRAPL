@@ -1,15 +1,31 @@
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 
-public class BufferedWriterTest extends WriterTest {
+public class BufferedWriterTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    @Override
-    public String getSigla() {
-        return "BW";
+    private String data;
+
+    public BufferedWriterTest() throws IOException {
+        this.data = new String(Files.readAllBytes(Paths.get(FILE_READER)));
     }
 
     @Override
-    public Writer getWriterInstance() throws IOException {
-        return new BufferedWriter(new FileWriter("/home/gilson/Documents/EstudoDirigido/writer-out/" + UUID.randomUUID().toString())); // 20mb
+    public void testImplementation() {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(OUT_WRITER + UUID.randomUUID().toString()));
+            bufferedWriter.write(data);
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "BW";
     }
 }

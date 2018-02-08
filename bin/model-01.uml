@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="355.99999999999994" y="201.0">TestGroupImpl</node>
+    <node x="413.12499999999994" y="531.0">ReaderTest</node>
+    <node x="127.10227272727269" y="402.0">FileReaderTest</node>
+    <node x="347.99999999999994" y="0.0">IEnergyTestCase</node>
+    <node x="0.0" y="225.0">EnergyTestImpl</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="EnergyTestImpl" target="IEnergyTestCase">
+      <point x="0.0" y="-51.5" />
+      <point x="167.5" y="171.0" />
+      <point x="381.49999999999994" y="171.0" />
+      <point x="-134.0" y="75.5" />
+    </edge>
+    <edge source="ReaderTest" target="TestGroupImpl">
+      <point x="-38.625" y="-63.5" />
+      <point x="529.0" y="511.0" />
+      <point x="515.5" y="511.0" />
+      <point x="0.0" y="75.5" />
+    </edge>
+    <edge source="ReaderTest" target="IEnergyTestCase">
+      <point x="38.625" y="-63.5" />
+      <point x="606.25" y="501.0" />
+      <point x="685.5" y="501.0" />
+      <point x="685.5" y="181.0" />
+      <point x="582.5" y="181.0" />
+      <point x="67.0" y="75.5" />
+    </edge>
+    <edge source="ReaderTest" target="FileReaderTest">
+      <point x="-115.875" y="-63.5" />
+      <point x="451.74999999999994" y="511.0" />
+      <point x="251.6022727272727" y="511.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="TestGroupImpl" target="IEnergyTestCase">
+      <point x="0.0" y="-75.5" />
+      <point x="0.0" y="75.5" />
+    </edge>
+    <edge source="FileReaderTest" target="EnergyTestImpl">
+      <point x="-62.25" y="-39.5" />
+      <point x="189.3522727272727" y="377.0" />
+      <point x="167.5" y="377.0" />
+      <point x="0.0" y="51.5" />
+    </edge>
+    <edge source="FileReaderTest" target="IEnergyTestCase">
+      <point x="62.25" y="-39.5" />
+      <point x="313.8522727272727" y="377.0" />
+      <point x="345.49999999999994" y="377.0" />
+      <point x="345.49999999999994" y="181.0" />
+      <point x="448.49999999999994" y="181.0" />
+      <point x="-67.0" y="75.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.731858407079646" x="363.12333736396613" y="337.16386876443306" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

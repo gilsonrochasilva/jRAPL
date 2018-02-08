@@ -1,17 +1,29 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 
-public class PrintWriterTest extends WriterTest {
+public class PrintWriterTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    @Override
-    public String getSigla() {
-        return "PW";
+    private String data;
+
+    public PrintWriterTest() throws IOException {
+        this.data = new String(Files.readAllBytes(Paths.get(FILE_READER)));
     }
 
     @Override
-    public Writer getWriterInstance() throws IOException {
-        return new PrintWriter("/home/gilson/Documents/EstudoDirigido/writer-out/" + UUID.randomUUID().toString()); // 20mb
+    public void testImplementation() {
+        try {
+            PrintWriter printWriter = new PrintWriter(OUT_WRITER + UUID.randomUUID().toString());
+            printWriter.write(data);
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "PW";
     }
 }

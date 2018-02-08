@@ -1,16 +1,29 @@
 import java.io.CharArrayWriter;
 import java.io.IOException;
-import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-public class CharArrayWriterTest extends WriterTest {
+public class CharArrayWriterTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    @Override
-    public String getSigla() {
-        return "CAW";
+    private String data;
+
+    public CharArrayWriterTest() throws IOException {
+        this.data = new String(Files.readAllBytes(Paths.get(FILE_READER)));
     }
 
     @Override
-    public Writer getWriterInstance() throws IOException {
-        return new CharArrayWriter();
+    public void testImplementation() {
+        try {
+            CharArrayWriter charArrayWriter = new CharArrayWriter();
+            charArrayWriter.write(data);
+            charArrayWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "CAW";
     }
 }

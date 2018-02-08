@@ -1,18 +1,31 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 
-public class FileOutputStreamTest extends OutputStreamTest {
+public class FileOutputStreamTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    @Override
-    public String getSigla() {
-        return "FOS";
+    private byte[] data;
+
+    public FileOutputStreamTest() throws IOException {
+        this.data = new String(Files.readAllBytes(Paths.get(FILE_READER))).getBytes();
     }
 
     @Override
-    OutputStream getOutputStreamInstance() throws FileNotFoundException {
-        return new FileOutputStream(new File("/home/gilson/Documents/EstudoDirigido/writer-out/" + UUID.randomUUID().toString())); // 20mb
+    public void testImplementation() {
+        try {
+            FileOutputStream fileWriter = new FileOutputStream(new File(OUT_WRITER + UUID.randomUUID().toString()));
+            fileWriter.write(data);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "FOS";
     }
 }

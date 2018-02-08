@@ -1,19 +1,32 @@
 import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
 
-public class BufferedOutputStreamTest extends OutputStreamTest {
+public class BufferedOutputStreamTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    @Override
-    public String getSigla() {
-        return "BOS";
+    private byte[] data;
+
+    public BufferedOutputStreamTest() throws IOException {
+        this.data = new String(Files.readAllBytes(Paths.get(FILE_READER))).getBytes();
     }
 
     @Override
-    public OutputStream getOutputStreamInstance() throws FileNotFoundException {
-        return new BufferedOutputStream(new FileOutputStream("/home/gilson/Documents/EstudoDirigido/largepagewithimages.html")); // 20mb
-//        return new BufferedInputStream(new FileInputStream("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-13")); // 140mb
-//        return new BufferedInputStream(new FileInputStream("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-14")); // 316mb
+    public void testImplementation() {
+        try {
+            BufferedOutputStream fileWriter = new BufferedOutputStream(new FileOutputStream(new File(OUT_WRITER + UUID.randomUUID().toString())));
+            fileWriter.write(data);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "BOS";
     }
 }

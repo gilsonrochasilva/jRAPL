@@ -1,36 +1,39 @@
-import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringBufferInputStream;
 
-public class StringBufferInputTest extends InputStreamTest {
+public class StringBufferInputTest extends EnergyTestImpl implements IEnergyTestCase {
 
-    public static void main(String[] args) throws IOException {
-        StringBufferInputTest stringBufferInputTest = new StringBufferInputTest();
-        stringBufferInputTest.testRead();
+    private String data;
 
-        EnergyCheckUtils.ProfileDealloc();
-
-        System.out.println(stringBufferInputTest.getResult());
-    }
-
-    @Override
-    public String getSigla() {
-        return "SBIS";
-    }
-
-    @Override
-    InputStream getInputStreamInstance() throws FileNotFoundException {
-        FileReader fileReader = new FileReader("/home/gilson/Documents/EstudoDirigido/largepagewithimages.html"); // 20mb
-//        FileReader fileReader = new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-13"); // 140mb
-//        FileReader fileReader = new FileReader("/home/gilson/Documents/EstudoDirigido/server.log.2015-11-14"); // 316mb
-
-        StringBuffer data = new StringBuffer();
+    public StringBufferInputTest() {
         try {
+            StringBuffer stringBuffer = new StringBuffer();
+            FileReader fileReader = new FileReader(FILE_READER);
             int value = 0;
-            while ((value = fileReader.read()) != -1) data = data.append(value);
+            while ((value = fileReader.read()) != -1) stringBuffer = stringBuffer.append(value);
             fileReader.close();
+
+            data = stringBuffer.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        return new StringBufferInputStream(data.toString());
+    @Override
+    public void testImplementation() {
+        try {
+            StringBufferInputStream reader = new StringBufferInputStream(data);
+            int value = 0, fake = 0;
+            while ((value = reader.read()) != -1) fake = value;
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getId() {
+        return "SBIS";
     }
 }
